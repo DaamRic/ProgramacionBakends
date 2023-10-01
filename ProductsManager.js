@@ -51,7 +51,7 @@ const product1 = productManager.addProduct({
     description: 'Este producto es una prueba',
     price: 10,
     thumbnail: 'No hay imagen',
-    code: 'abc123',
+    code: 'Code123',
     stock: 10,
 });
 
@@ -62,8 +62,8 @@ try {
     title: 'producto repetible',
     description: 'Este es un producto repetible',
     price: 100,
-    thumbnail: 'Otra imagen',
-    code: 'abc123',
+    thumbnail: 'imagen',
+    code: 'Code123',
     stock: 100,
     });
 } catch (error) {
