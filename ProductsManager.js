@@ -121,7 +121,11 @@ console.error(error.message);
 try {
 productManager.updateProduct(products[0].id, {
     title: 'Producto actualizado',
+    description: 'Este es un producto prueba',
     price: 300,
+    thumbnail: 'Sin imagen',
+    code: 'abc123',
+    stock: 25,
 });
 
 console.log('Producto actualizado con éxito.');
@@ -130,8 +134,11 @@ console.error(error.message);
 }
 
 try {
-productManager.deleteProduct(products[0].id);
-console.log('Producto eliminado con éxito.');
-} catch (error) {
-console.error(error.message);
-}
+    productManager.deleteProduct(products[0].id);
+    console.log('Producto eliminado con éxito.');
+    } catch (error) {
+    console.error(error.message);
+    }
+
+
+module.exports = ProductManager
