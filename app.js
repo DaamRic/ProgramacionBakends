@@ -1,36 +1,35 @@
 const express = require('express');
-const ProductManager = require('./ProductsManager');
-
+const productManager = require('./productManager');
 
 const app = express();
-const port = 8080;
-
-const productManager = new ProductManager();
-
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/products', (req, res) => {
-const { limit } = req.query;
-let products = productManager.getProducts();
-
-if (limit) {
-    const limitNumber = parseInt(limit, 10);
-    products = products.slice(0, limitNumber);
-}
-
-res.json(products);
+app.get('/', (req, res) => {
+  res.send('home');
 });
 
-app.get('/products/:id', (req, res) => {
-const productId = req.params.id;
-try {
-    const product = productManager.getProductById(productId);
+app.get('/products', async (req, res) => {
+  const { query } = req;
+  const { limit } = query;
+  const product = await productManager.getProducts();
+  if (!limit) {
     res.json(product);
-} catch (error) {
-    res.status(404).json({ error: 'Producto no encontrado' });
-}
+  } else {
+    const filtrated = product.filter((prod) => prod.id <= limit);
+    console.log("filtrado");
+    return res.json(filtrated);
+  }
 });
 
-app.listen(port, () => {
-console.log(`Servidor corriendo en el puerto ${port}`);
+app.get('/products/:pId', async (req, res) => {
+  const prodId = req.params.pId;
+  const parseId = parseInt(prodId);
+  const search = await productManager.getProductsbyId(parseId);
+  return res.send(search);
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor Express en ejecución en el puerto ${PORT}`);
 });
