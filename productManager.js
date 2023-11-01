@@ -118,7 +118,6 @@ class ProductManager {
   }
 }
 
-
 const productManager = new ProductManager();
 
 productManager.addProduct(
